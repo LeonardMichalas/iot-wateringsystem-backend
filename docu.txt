@@ -1,0 +1,2 @@
+1. docker build -t lmichalas/main_minimal .
+2. docker run -d --restart=always -p 8080:8080 lmichalas/main_minimal
