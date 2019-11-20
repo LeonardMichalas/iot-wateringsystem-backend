@@ -38,3 +38,26 @@ $2a$08$Pa6duKiNyQ2Lo/khA/D/5Ob0/OOlhG4lyl3ag8ZFeoZpuzR2VHFz.
 1. docker pull nodered/node-red
 2. kubectl run node-red --image=nodered/node-red --port 1880
 3. kubectl expose deployment node-red --type=LoadBalancer --port 80 --target-port 1880
+
+#Setup MQTT Broker
+1. docker pull eclipse-mosquitto
+2. docker run -d -p 1883:1883 -p 9001:9001 --name mymqttbroker eclipse-mosquitto
+3. docker exec -it mymqttbroker /bin/sh
+4. cd mosquitto/config/
+5. vi mosquitto.conf
+6. allow_anonymous false
+7. password_file /etc/mosquitto/passwd
+8. cd /etc/
+9. mkdir mosquitto
+10. touch passwd
+11. mosquitto_passwd -b /etc/mosquitto/passwd cougar iot-bootcamp-2019
+12. mosquitto_passwd -b /etc/mosquitto/passwd jaguar iot-bootcamp-2019
+13. mosquitto_passwd -b /etc/mosquitto/passwd panther iot-bootcamp-2019
+14. mosquitto_passwd -b /etc/mosquitto/passwd leopard iot-bootcamp-2019
+15. mosquitto_passwd -b /etc/mosquitto/passwd lion iot-bootcamp-2019
+16. mosquitto_passwd -b /etc/mosquitto/passwd tiger iot-bootcamp-2019
+17. exit
+17. docker commit 59cdfe17f429 lmichalas/mqttbroker-iot-bootcamp:0.2
+18. docker push lmichalas/mqttbroker-iot-bootcamp:0.2
+19. kubectl run mymqttbroker --image=lmichalas/mqttbroker-iot-bootcamp:0.2 --port 1883
+20. kubectl expose deployment mymqttbroker --type=LoadBalancer --port 1883 --target-port 1883
