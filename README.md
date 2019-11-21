@@ -19,7 +19,7 @@
 6. kubectl scale deployment iot-wateringsystem-backend --replicas=2
 7. kubectl get pods
 
-#Modify Node red image
+# Modify Node red image
 
 1. docker run -d -p 1880:1880 --name mynodered nodered/node-red
 2. docker exec -it mynodered /bin/bash
@@ -39,7 +39,7 @@ $2a$08$Pa6duKiNyQ2Lo/khA/D/5Ob0/OOlhG4lyl3ag8ZFeoZpuzR2VHFz.
 2. kubectl run node-red --image=nodered/node-red --port 1880
 3. kubectl expose deployment node-red --type=LoadBalancer --port 80 --target-port 1880
 
-#Setup MQTT Broker
+# Setup MQTT Broker
 1. docker pull eclipse-mosquitto
 2. docker run -d -p 1883:1883 -p 9001:9001 --name mymqttbroker eclipse-mosquitto
 3. docker exec -it mymqttbroker /bin/sh
@@ -62,7 +62,7 @@ $2a$08$Pa6duKiNyQ2Lo/khA/D/5Ob0/OOlhG4lyl3ag8ZFeoZpuzR2VHFz.
 19. kubectl run mymqttbroker --image=lmichalas/mqttbroker-iot-bootcamp:0.2 --port 1883
 20. kubectl expose deployment mymqttbroker --type=LoadBalancer --port 1883 --target-port 1883
 
-#Node red implementation
+# Node red implementation
 
 1. Manage palette -> install -> node-red-dashboard
 2. Dashboard appears on IP:Port/ui
