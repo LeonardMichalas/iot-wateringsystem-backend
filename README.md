@@ -61,3 +61,24 @@ $2a$08$Pa6duKiNyQ2Lo/khA/D/5Ob0/OOlhG4lyl3ag8ZFeoZpuzR2VHFz.
 18. docker push lmichalas/mqttbroker-iot-bootcamp:0.2
 19. kubectl run mymqttbroker --image=lmichalas/mqttbroker-iot-bootcamp:0.2 --port 1883
 20. kubectl expose deployment mymqttbroker --type=LoadBalancer --port 1883 --target-port 1883
+
+#Node red implementation
+
+1. Manage palette -> install -> node-red-dashboard
+2. Dashboard appears on IP:Port/ui
+3. Network -> MQTT in node -> configure -> new server -> IP und Port -> Security -> Username & Password -> topic definieren (topic has the following pattern: /iot-bootcamp-2019/[groupname]/devices/[CPU SN]/sensors/humidity)
+4. Define logic
+
+Cloud -> Edge Device
+/iot-bootcamp-2019/[groupname]/devices/[CPU SN]/config/hAct -> hAct (0-100)
+/iot-bootcamp-2019/[groupname]/devices/[CPU SN]/config/hMin -> hMin (0-100)
+/iot-bootcamp-2019/[groupname]/devices/[CPU SN]/config/hMin -> hMax (0-100)
+/iot-bootcamp-2019/[groupname]/devices/[CPU SN]/config/tpumping -> tpumping (0-100s)
+/iot-bootcamp-2019/[groupname]/devices/[CPU SN]/config/lrefill -> refill (0-100%)
+
+Edge Device -> Cloud
+iot-bootcamp-2019/[groupname]/devices/[CPU SN]/sensors/humidity (0-100)
+iot-bootcamp-2019/[groupname]/devices/[CPU SN]/sensors/level (0-100)
+iot-bootcamp-2019/[groupname]/devices/[CPU SN]/sensors/button (0,1)
+iot-bootcamp-2019/[groupname]/devices/[CPU SN]/actuator/led (0,1)
+iot-bootcamp-2019/[groupname]/devices/[CPU SN]/actuator/pump (0,1)
